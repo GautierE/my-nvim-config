@@ -55,6 +55,7 @@ local cmp = require('cmp')
 cmp.setup({
   sources = {
     {name = 'nvim_lsp'},
+    {name = 'nvim_lsp_signature_help'},
   },
   snippet = {
     expand = function(args)
@@ -67,3 +68,8 @@ cmp.setup({
     ['<Tab>'] = cmp.mapping.confirm({select = true}),
   }),
 })
+
+vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
+  vim.lsp.handlers.signature_help,
+  {border = "rounded"}
+)

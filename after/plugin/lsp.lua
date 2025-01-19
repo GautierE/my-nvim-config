@@ -30,9 +30,25 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end,
 })
 
+local function organize_imports()
+  local params = {
+    command = "_typescript.organizeImports",
+    arguments = {vim.api.nvim_buf_get_name(0)},
+    title = ""
+  }
+  vim.lsp.buf.execute_command(params)
+end
+
 -- These are just examples. Replace them with the language
 -- servers you have installed in your system
-require('lspconfig').ts_ls.setup({})
+require('lspconfig').ts_ls.setup({
+  commands = {
+    OrganizeImports = {
+      organize_imports,
+      description = "Organize Imports"
+    }
+  }
+})
 
 local cmp = require('cmp')
 

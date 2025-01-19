@@ -70,6 +70,59 @@ cmp.setup({
   }),
 })
 
+-- Shortcut to import element on cursor for js/ts files
+vim.keymap.set("n", "<leader>i", function()
+  if vim.bo.filetype == "typescript" or vim.bo.filetype == "javascript" then
+    local params = vim.lsp.util.make_range_params()
+    params.context = { only = { "source.addMissingImports.ts" } }
+    vim.lsp.buf_request(0, "textDocument/codeAction", params, function(err, actions)
+      if err then
+        vim.notify("Error fetching code actions: " .. err.message, vim.log.levels.ERROR)
+        return
+      end
+      if not actions or vim.tbl_isempty(actions) then
+        vim.notify("No code actions available", vim.log.levels.INFO)
+        return
+      end
+      if #actions == 1 then
+        local action = actions[1]
+        if action.edit or type(action.command) == "table" then
+          if action.edit then
+            vim.lsp.util.apply_workspace_edit(action.edit, "utf-16")
+          end
+          if type(action.command) == "table" then
+            vim.lsp.buf.execute_command(action.command)
+          end
+        else
+          vim.lsp.buf.execute_command(action)
+        end
+      else
+        vim.ui.select(actions, {
+          prompt = "Select a code action:",
+          format_item = function(action)
+            return action.title
+          end,
+        }, function(selected)
+          if selected then
+            if selected.edit or type(selected.command) == "table" then
+              if selected.edit then
+                vim.lsp.util.apply_workspace_edit(selected.edit, "utf-16")
+              end
+              if type(selected.command) == "table" then
+                vim.lsp.buf.execute_command(selected.command)
+              end
+            else
+              vim.lsp.buf.execute_command(selected)
+            end
+          end
+        end)
+      end
+    end)
+  else
+    vim.lsp.buf.code_action()
+  end
+end, { desc = "Add missing import or perform code action" })
+
 vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
   vim.lsp.handlers.signature_help,
   {border = "rounded"}

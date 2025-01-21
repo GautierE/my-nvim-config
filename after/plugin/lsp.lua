@@ -39,8 +39,6 @@ local function organize_imports()
   vim.lsp.buf.execute_command(params)
 end
 
--- These are just examples. Replace them with the language
--- servers you have installed in your system
 require('lspconfig').ts_ls.setup({
   commands = {
     OrganizeImports = {
@@ -49,6 +47,17 @@ require('lspconfig').ts_ls.setup({
     }
   }
 })
+
+require('lspconfig').intelephense.setup({})
+
+vim.diagnostic.config({
+  virtual_text = true,
+  signs = true,
+  underline = true,
+  update_in_insert = false,
+  severity_sort = true,
+})
+
 
 local cmp = require('cmp')
 

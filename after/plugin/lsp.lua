@@ -49,6 +49,7 @@ require('lspconfig').ts_ls.setup({
 })
 
 require('lspconfig').intelephense.setup({})
+require'lspconfig'.html.setup{}
 
 vim.diagnostic.config({
   virtual_text = true,

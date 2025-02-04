@@ -24,3 +24,8 @@ vim.keymap.set("n", "Q", "<nop>")
 vim.keymap.set("n", "<leader>f", vim.lsp.buf.format)
 
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+
+vim.keymap.set("n", "<leader>dd", "i dd();<Esc>F(a", { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>du", "i dump();<Esc>F(a", { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>cl", "i console.log();<Esc>F(a", { noremap = true, silent = true })
+

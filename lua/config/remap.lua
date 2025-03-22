@@ -29,3 +29,7 @@ vim.keymap.set("n", "<leader>dd", "i dd();<Esc>F(a", { noremap = true, silent = 
 vim.keymap.set("n", "<leader>du", "i dump();<Esc>F(a", { noremap = true, silent = true })
 vim.keymap.set("n", "<leader>cl", "i console.log();<Esc>F(a", { noremap = true, silent = true })
 
+vim.keymap.set('', '<LeftMouse>', '', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('', '<LeftDrag>', '', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('', '<LeftRelease>', '', { noremap = true, silent = true })
+

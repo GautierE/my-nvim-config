@@ -33,3 +33,8 @@ vim.keymap.set('', '<LeftMouse>', '', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('', '<LeftDrag>', '', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('', '<LeftRelease>', '', { noremap = true, silent = true })
 
+vim.keymap.set('n', '<leader>t', ':Neotree reveal toggle<CR>', {
+  silent = true,
+  desc = 'Toggle file tree',
+})
+
